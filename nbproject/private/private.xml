@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/src/java/servlets/PrivateController.java</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/error.jsp</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/index.html</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/login.jsp</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/WEB-INF/private/admin.jsp</file>
-            <file>file:/C:/Users/pupil/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/index.jsp</file>
+            <file>file:/C:/Users/pupil.IVKHK/Documents/NetBeansProjects/KTVR17/MySecurityBlog/src/java/entity/Articles.java</file>
+            <file>file:/C:/Users/pupil.IVKHK/Documents/NetBeansProjects/KTVR17/MySecurityBlog/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/C:/Users/pupil.IVKHK/Documents/NetBeansProjects/KTVR17/MySecurityBlog/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/pupil.IVKHK/Documents/NetBeansProjects/KTVR17/MySecurityBlog/src/java/session/ArticlesFacade.java</file>
         </group>
     </open-files>
 </project-private>

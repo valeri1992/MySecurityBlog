@@ -5,22 +5,27 @@
  */
 package servlets;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import entity.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import session.UsersFacade;
 
 /**
  *
  * @author pupil
  */
-@WebServlet(name = "PrivateController", urlPatterns = {"/admin","/logout","/pass"})
-public class PrivateController extends HttpServlet {
+@WebServlet(name = "SecurityController", urlPatterns = {
+    "/login"
+    })
 
+public class SecurityController extends HttpServlet {
+@EJB UsersFacade usersFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,21 +37,33 @@ public class PrivateController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+          response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-    
-        String path = request.getServletPath();
-        if("/admin".equals(path)){
-              request.getRequestDispatcher("/WEB-INF/private/admin.jsp").forward(request, response);
-           
-            }else if("/logout".equals(path)){
-             request.getRequestDispatcher("/index.html").forward(request, response);
-        }
-        else if("/pass".equals(path)){
-            //String pass=requiest.getParameter("/pass");
+        String path=request.getServletPath();
+        if(path !=null)
+            switch(path){
+                case "login":
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            Users regUser =usersFacade.findUserByLogin(username);
+            if (regUser==null){
+                request.setAttribute("info", "Неправильный логин или пароль");
+            request.getRequestDispatcher("/login.jsp")
+                    .forward(request, response);}
+            if(!password.equals(regUser.getPassword())){
+                   request.setAttribute("info", "Неправильный логин или пароль");
+            request.getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
+                }
+            HttpSession session = request.getSession(true);
+            session.setAttribute("regUser", regUser);
+              request.setAttribute("info", "Вы вошли в систему");
+            request.getRequestDispatcher("/index.jsp")
+                    .forward(request, response);
+            break;
             
-             request.getRequestDispatcher("/index.jsp").forward(request, response);
-        }
+            }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

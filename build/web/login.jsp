@@ -13,13 +13,15 @@
     </head>
     <body>
         <h1>Войдите под своим Login!</h1>
-        <form action="j_security_check" method="POST">
-            Login:<br>
-            <input type="text" name="j_username">
+        <form action="login" method="POST">
+            <div id="loginBox">
+                <p><strong>Login:</strong>
+                    <input placeholder="Введите логин" type="text" size="20" name="username"></p>
             <br>
-            Password:<br>
-            <input type="password" name="j_password"><br><br>
-            <input type="submit" value="GO"
+            <p><strong> Password:</strong>
+                   <input  placeholder="Введите пароль" type="password" size="20" name="password"></p><br>
+            <p> <input type="submit" value="GO"></p>
+            <div>
             </form>
     </body>
 </html>
