@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pupil
  */
-@WebServlet(name = "PrivateController", urlPatterns = {"/admin","/logout","/pass"})
+@WebServlet(name = "PrivateController", urlPatterns = {"/admin"})
 public class PrivateController extends HttpServlet {
 
     /**

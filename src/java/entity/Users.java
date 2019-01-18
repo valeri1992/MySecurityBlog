@@ -8,15 +8,20 @@ package entity;
 import entity.Groupuser;
 import entity.Comments;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,8 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findByLogin", query = "SELECT u FROM Users u WHERE u.login = :login")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
+    , @NamedQuery(name = "Users.findByLogin", query = "SELECT u FROM Users u WHERE u.login = :login")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,17 +56,21 @@ public class Users implements Serializable {
     private Collection<Groupuser> groupuserCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersLogin")
     private Collection<Comments> commentsCollection;
+    @OneToOne
+    @JoinColumn (name="personID")
+    private Person person;
+
 
     public Users() {
     }
 
-    public Users(String login) {
-        this.login = login;
-    }
-
-    public Users(String login, String password) {
+    public Users(String login, String password, Person person) {
         this.login = login;
         this.password = password;
+        this.groupuserCollection = new ArrayList();
+        this.commentsCollection = new ArrayList();
+        this.person = person;
+     
     }
 
     public String getLogin() {
@@ -81,7 +89,6 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
     public Collection<Groupuser> getGroupuserCollection() {
         return groupuserCollection;
     }
@@ -90,7 +97,6 @@ public class Users implements Serializable {
         this.groupuserCollection = groupuserCollection;
     }
 
-    @XmlTransient
     public Collection<Comments> getCommentsCollection() {
         return commentsCollection;
     }
@@ -99,21 +105,50 @@ public class Users implements Serializable {
         this.commentsCollection = commentsCollection;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (login != null ? login.hashCode() : 0);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.login);
+        hash = 37 * hash + Objects.hashCode(this.password);
+        hash = 37 * hash + Objects.hashCode(this.groupuserCollection);
+        hash = 37 * hash + Objects.hashCode(this.commentsCollection);
+        hash = 37 * hash + Objects.hashCode(this.person);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Users other = (Users) object;
-        if ((this.login == null && other.login != null) || (this.login != null && !this.login.equals(other.login))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Users other = (Users) obj;
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.groupuserCollection, other.groupuserCollection)) {
+            return false;
+        }
+        if (!Objects.equals(this.commentsCollection, other.commentsCollection)) {
+            return false;
+        }
+        if (!Objects.equals(this.person, other.person)) {
             return false;
         }
         return true;
@@ -121,7 +156,10 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "servlets.Users[ login=" + login + " ]";
+        return "Users{" + "login=" + login + ", password=" + password + ", groupuserCollection=" + groupuserCollection + ", commentsCollection=" + commentsCollection + ", person=" + person.getName()+
+              ", person=" + person.getSurname()  + '}';
     }
+
+    
     
 }
