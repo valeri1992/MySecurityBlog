@@ -27,11 +27,12 @@
                     <input placeholder="Введите login" type="text" size="20" name="login"></p>
             <br>
                 <p><strong>Пароль:</strong>
-                    <input  type="text" size="20" name="password1"></p>
+                    <input  type="password" size="20" name="password1"></p>
             <br>
              <br>
                 <p><strong> Повторите Пароль:</strong>
-                    <input  type="text" size="20" name="password2"></p>
+                    <input  type="password" size="20" name="password2"></p>
+                <p> <input type="submit" placeholder="Пароль..." value="Зарегистрироваться"></p>
             
             <div>
             </form>

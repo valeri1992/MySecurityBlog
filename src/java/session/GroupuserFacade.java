@@ -6,6 +6,7 @@
 package session;
 
 import entity.Groupuser;
+import entity.Users;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,4 +30,15 @@ public class GroupuserFacade extends AbstractFacade<Groupuser> {
         super(Groupuser.class);
     }
     
+    
+
+    public Groupuser findByUser(Users user) {
+             try{
+    return (Groupuser) em.createQuery("SELECT gr FROM Groupuser gr WHERE gr.usersLogin=: groupusers")
+             .setParameter("user",user)
+             .getSingleResult();
+             }
+             catch(Exception e){
+             return null;}
+    }
 }
